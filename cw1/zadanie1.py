@@ -4,6 +4,6 @@ if wiek1>wiek2:
     wynik='Student 1 jest starszy i ma '+str(int(wiek1))+' lat'
     print(wynik)
     with open('cw1/wiek1.txt','a') as plik:
-        plik.write(''.join(wynik))
+        plik.write(wynik)
 else:
     print('Student 1 nie jest starszy')
