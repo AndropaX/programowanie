@@ -1,1 +1,0 @@
-Student 1 jest starszy i ma: 10 lat
