@@ -1,0 +1,37 @@
+import turtle
+import math
+turtle.setworldcoordinates(-400,0,400,800)
+tur=turtle.Pen()
+tur.speed(1)
+house_w=600
+house_h=200
+house_b=225
+doors_w=50
+doors_h=90
+roof=house_w/math.sqrt(2)
+arc_a=90
+arc_b=45
+tur.left(arc_a)
+tur.forward(doors_h)
+tur.right(arc_a)
+tur.forward(doors_w)
+tur.right(arc_a)
+tur.forward(doors_h)
+tur.left(arc_a)
+tur.forward(house_b)
+tur.left(arc_a)
+tur.forward(house_h)
+tur.left(arc_b)
+tur.forward(roof)
+tur.left(arc_a)
+tur.forward(roof)
+tur.left(arc_a)
+tur.left(arc_b)
+tur.forward(house_w)
+tur.right(arc_a)
+tur.right(arc_a)
+tur.forward(house_w)
+tur.left(arc_a)
+tur.forward(house_h)
+tur.left(arc_a)
+tur.forward(house_w)
