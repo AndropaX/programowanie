@@ -7,7 +7,7 @@ lista=[]
 np.array(lista)
 katalog='cw4'
 for filename in glob.glob(os.path.join(katalog,'*.csv')):
-    with open(os.path.join(os.getcwd(), filename),'r',encoding="utf8") as f:
+    with open(filename,'r',encoding="utf8") as f:
         dane=csv.reader(f)
         #ignore headers
         next(dane)
