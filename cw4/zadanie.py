@@ -25,7 +25,7 @@ print("Stacja z maksymalnym pomiarem temperatury:",tablica[maxim,1][0][0])
 print("Godzina maksymalnego pomiaru temperatury:",tablica[maxim,3][0][0])
 opad=tablica[:,8].astype(float)
 opad_t=np.where(0<opad)
+opad_l=list(opad_t[0])
 print("Stacje i godziny na których odnotowano opad:")
-for i in opad_t:
-    print(tablica[i,1])
-    print(tablica[i,3])
+for i in opad_l:
+    print(tablica[i,1],":",tablica[i,3])
