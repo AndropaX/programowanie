@@ -3,6 +3,7 @@ import numpy as np
 import urllib.request
 import requests
 import time
+from datetime import datetime
 
 def checkurl(url):
     code=requests.get(url)
@@ -18,9 +19,15 @@ def decode(url):
     lines=[l.decode('utf-8') for l in url.readlines()]
     return lines
 
+def gettime():
+    curr=datetime.now()
+    dattime=curr.strftime("%d/%m/%Y %H:%M")
+    print(curr)
+    return dattime
+
 lista_st=[]
 np.array(lista_st)
-lisurl=urllib.request.urlopen("https://danepubliczne.imgw.pl/api/data/synop/format/csv")
+lisurl=openurl("https://danepubliczne.imgw.pl/api/data/synop/format/csv")
 lin=decode(lisurl)
 dane=csv.reader(lin)
 next(dane)
@@ -29,10 +36,17 @@ for row in dane:
 tabl=np.array(lista_st)
 print("Kod i nazwa stacji:")
 for i in tabl:
-   time.sleep(0.1)
+   time.sleep(0.01)
    print(i[0],":",i[1])
 stacja=input("Wpisz kod stacji: ")
 requrl="https://danepubliczne.imgw.pl/api/data/synop/id/"+stacja+"/format/csv"
 checkurl(requrl)
-data=urllib.request.urlopen(requrl)
+data=openurl(requrl)
 print(data.read())
+init=gettime()
+print("Obecna data i godzina:",init)
+lon=input("Wpisz datę do której ma działać skrypt w formacie DD/MM/RRRR hh:mm : ")
+if lon<init:
+    print("mniejszy")
+else:
+    print("większy")
