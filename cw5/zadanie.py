@@ -44,6 +44,15 @@ def getsleeptime():
     return sleeptime
 
 def convtime(time):
+    ok=0
+    while ok==0:
+        try:
+            datetime.strptime(time,"%d/%m/%Y %H:%M")
+        except ValueError:
+            print("Niepoprawna data !")
+            time=input("Wpisz poprawną datę: ")
+        else:
+            ok=1
     czas=datetime.strptime(time,"%d/%m/%Y %H:%M")
     return czas
 
