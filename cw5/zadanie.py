@@ -89,6 +89,9 @@ inlon=input("Wpisz datę do której ma działać skrypt w formacie DD/MM/RRRR hh
 lon=convtime(inlon)
 init=gettime(1)
 cz_d=lon-init
+if lon<init:
+    print("Wpisano przeszłą datę lub godzinę !")
+    exit()
 print("Czas działania:",cz_d)
 
 #Zapisywanie pierwszej obserwacji
