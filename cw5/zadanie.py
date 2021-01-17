@@ -31,6 +31,11 @@ def gettime(arg):
         time=curr
     elif arg==2:
         time=curr.strftime("%m.%d.%Y-%H.%M")
+    elif arg==3:
+        date=curr.strftime("%m/%d/%Y/")
+        hour=int(curr.strftime("%H"))+1
+        combine=date+str(hour)
+        time=datetime.strptime(combine,"%m/%d/%Y/%H")
     else:
         print("Niepoprawny argument !")
         exit()
@@ -48,6 +53,13 @@ def saveres(lista):
             f.write("%s\n" % i)
     print("Wyniki zostały zapisane do pliku o nazwie: ",filename)
     exit()
+
+def calcmeantemp(lista):
+    temp=np.mean(lista[:][4].astype(float))
+    temp_text="Średnia temperatura wynosiła:"+temp+"st. C"
+    print(temp_text)
+    lista.append(temp_text)
+
 
 # Odczytywanie i wyświetlanie listy stacji
 lista_st=newlist()
@@ -86,13 +98,14 @@ for row in data_dec:
     lista_dan.append(row)
 
 #Czas działania <1h ?
-mintime=timedelta(hours=1)
-if cz_d<mintime:
-    print("Czas działania skryptu jest krótszy niż godzina, zostanie zapisana jedna obserwacja")
+hourdiff=gettime(3)-gettime(1)
+sleeptime=hourdiff.seconds
+if cz_d<hourdiff:
+    print("Czas działania skryptu jest zbyt krótki, zostanie zapisana jedna obserwacja")
     saveres(lista_dan)
 else:
-    print("Następna aktualizacja danych za: 1h")
-    time.sleep(3600)
+    print("Następna aktualizacja danych za: ",sleeptime/60," minut")
+    time.sleep(sleeptime)
 
 #Następne zapytania
 while lon>gettime(1):
@@ -108,4 +121,10 @@ while lon>gettime(1):
         time.sleep(300)
     else:
         print("Dostępne nowe dane")
+        for i in lista_new:
+            lista_dan.append(i)
+        print("Następna aktualizacja danych za: 1h")
+        time.sleep(3600)
+
+#Obliczanie średniej, zapisywanie wyników
     
