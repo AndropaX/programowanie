@@ -82,6 +82,7 @@ for i in tabl:
 # Wybór stacji
 stacja=input("Wpisz kod stacji: ")
 requrl="https://danepubliczne.imgw.pl/api/data/synop/id/"+stacja+"/format/csv"
+data=openurl(requrl)
 
 # Określenie czasu działania
 print("Obecna data i godzina:",gettime(3))
@@ -95,7 +96,6 @@ if lon<init:
 print("Czas działania:",cz_d)
 
 #Zapisywanie pierwszej obserwacji
-data=openurl(requrl)
 lista_dan=newlist()
 data_dec=csv.reader(data)
 next(data_dec)
