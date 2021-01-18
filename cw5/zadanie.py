@@ -38,23 +38,25 @@ def gettime(arg):
         time=curr.strftime("%d/%m/%Y %H:%M")
     elif arg==4:
         date=curr.strftime("%d/%m/%Y/")
-        hour=int(curr.strftime("%H"))+1
-        combined=date+str(hour)
-        time=datetime.strptime(combined,"%d/%m/%Y/%H")
+        if curr.strftime("%H")=="23":
+            hour=00
+            combined=date+str(hour)
+            time_zero=datetime.strptime(combined,"%d/%m/%Y/%H")
+            time=time_zero+timedelta(days=1)
+        else:
+            hour=int(curr.strftime("%H"))+1
+            combined=date+str(hour)
+            time=datetime.strptime(combined,"%d/%m/%Y/%H")
     else:
         print("Niepoprawny argument !")
         exit()
     return time
 
 def getsleeptime():
-    curr=gettime(1)
-    if curr.strftime("%H")=="23":
-        sleeptime=1800
-    else:    
-        while gettime(4)<gettime(1):
+    while gettime(4)<gettime(1):
             time.sleep(1)
-        hourdiff=gettime(4)-gettime(1)
-        sleeptime=hourdiff.seconds
+    hourdiff=gettime(4)-gettime(1)
+    sleeptime=hourdiff.seconds
     return sleeptime
 
 def convtime(time):
