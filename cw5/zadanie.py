@@ -11,11 +11,19 @@ def newlist():
     np.array(lista)
     return lista
     
+def checkstation(number):
+    ok=0
+    while ok==0:
+        url="https://danepubliczne.imgw.pl/api/data/synop/id/"+number+"/format/csv"
+        code=requests.get(url)
+        if code.status_code==404:
+            print("Niepoprawny kod stacji !")
+            number=input("Wpisz poprawny kod stacji: ")
+        else:
+            ok=1
+    return url
+        
 def openurl(url):
-    code=requests.get(url)
-    if code.status_code==404:
-        print("Niepoprawny kod stacji !")
-        exit()
     cont=urllib.request.urlopen(url)
     lines=[l.decode('utf-8') for l in cont.readlines()]
     return lines
@@ -98,7 +106,7 @@ for i in tabl:
 
 # Wybór stacji
 stacja=input("Wpisz kod stacji: ")
-requrl="https://danepubliczne.imgw.pl/api/data/synop/id/"+stacja+"/format/csv"
+requrl=checkstation(stacja)
 data=openurl(requrl)
 
 # Określenie czasu działania
