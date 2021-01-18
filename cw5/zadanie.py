@@ -47,10 +47,14 @@ def gettime(arg):
     return time
 
 def getsleeptime():
-    while gettime(4)<gettime(1):
-        time.sleep(1)
-    hourdiff=gettime(4)-gettime(1)
-    sleeptime=hourdiff.seconds
+    curr=gettime(1)
+    if curr.strftime("%H")=="23":
+        sleeptime=1800
+    else:    
+        while gettime(4)<gettime(1):
+            time.sleep(1)
+        hourdiff=gettime(4)-gettime(1)
+        sleeptime=hourdiff.seconds
     return sleeptime
 
 def convtime(time):
@@ -61,13 +65,13 @@ def convtime(time):
             datetime.strptime(time,"%d/%m/%Y %H:%M")
             if datetime.strptime(time,"%d/%m/%Y %H:%M")<gettime(1):
                 print("Data lub czas jest przeszły !")
-                time=input("Wpisz poprawną datę: ")
+                time=input("Wpisz poprawną datę i godzinę: ")
                 past=0
             else:
                 past=1
         except ValueError:
-            print("Niepoprawna data !")
-            time=input("Wpisz poprawną datę: ")
+            print("Niepoprawny format daty i godziny !")
+            time=input("Wpisz poprawną datę i godzinę: ")
             ok=0
         else:
             ok=1
@@ -80,7 +84,6 @@ def calcmeantemp(lista,inittime):
     start_text=inittime.strftime("%d/%m/%Y %H:%M")
     finish_text=gettime(3)
     temp_text="Średnia temperatura od "+start_text+" do "+finish_text+", z "+str(len(table))+" pomiarów, ze stacji "+str(table[0,1])+" wynosiła: "+str(temp)+" st. C"
-    print(table)
     print(temp_text)
     return temp_text
 
@@ -116,11 +119,11 @@ data=openurl(requrl)
 
 # Określenie czasu działania
 print("Obecna data i godzina:",gettime(3))
-inlon=input("Wpisz datę do której ma działać skrypt w formacie DD/MM/RRRR hh:mm : ")
+inlon=input("Wpisz datę i godzinę do której ma działać skrypt w formacie DD/MM/RRRR hh:mm : ")
 lon=convtime(inlon)
 init=gettime(1)
 cz_d=lon-init
-print("Czas działania:",cz_d)
+print("Czas działania skryptu:",cz_d)
 
 #Zapisywanie pierwszej obserwacji
 lista_dan=newlist()
