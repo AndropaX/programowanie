@@ -47,6 +47,8 @@ def gettime(arg):
     return time
 
 def getsleeptime():
+    while gettime(4)<gettime(1):
+        time.sleep(1)
     hourdiff=gettime(4)-gettime(1)
     sleeptime=hourdiff.seconds
     return sleeptime
@@ -72,22 +74,25 @@ def convtime(time):
     czas=datetime.strptime(time,"%d/%m/%Y %H:%M")
     return czas
 
-def calcmeantemp(lista):
+def calcmeantemp(lista,inittime):
     table=np.array(lista)
     temp=np.mean(table[:,4].astype(float))
-    temp_text="Średnia temperatura z "+str(len(table))+" pomiarów, ze stacji "+str(table[0,1])+" wynosiła: "+str(temp)+" st. C"
+    start_text=inittime.strftime("%d/%m/%Y %H:%M")
+    finish_text=gettime(3)
+    temp_text="Średnia temperatura od "+start_text+" do "+finish_text+", z "+str(len(table))+" pomiarów, ze stacji "+str(table[0,1])+" wynosiła: "+str(temp)+" st. C"
     print(table)
     print(temp_text)
     return temp_text
 
-def saveres(lista):
-    output=calcmeantemp(lista)
+def saveres(lista,inittime):
+    table=np.array(lista)
+    output=calcmeantemp(lista,inittime)
     time=gettime(2)
     filename="cw5/synop-"+time+".txt"
     with open(filename,'w') as f:
+        for i in table:
+            f.write("%s\n" % i)
         f.write(output)
-        #for i in comp_list:
-        #    f.write("%s\n" % i)
     print("Wyniki zostały zapisane do pliku:",filename)
     exit()
 
@@ -128,7 +133,7 @@ for row in data_dec:
 sleeptime=getsleeptime()
 if cz_d.seconds<sleeptime:
     print("Czas działania skryptu jest zbyt krótki, zostanie zapisana tylko jedna obserwacja")
-    saveres(lista_dan)
+    saveres(lista_dan,init)
 else:
     print("Pobrano pierwszą obserwację, następna aktualizacja danych za:",int(sleeptime/60),"minut")
     time.sleep(sleeptime)
@@ -152,11 +157,11 @@ while lon>gettime(1):
             lista_dan.append(i)
         if new_sleep>rem_time.seconds:
             print("Pozostały czas działania jest zbyt krótki, kończenie działania")
-            saveres(lista_dan)
+            saveres(lista_dan,init)
         else:
             print("Następna aktualizacja danych za:",int(new_sleep/60),"minut")
             time.sleep(new_sleep)
 
 #Obliczanie średniej, zapisywanie wyników
 print("Czas działania skryptu dobiegł końca")
-saveres(lista_dan)   
+saveres(lista_dan,init)
