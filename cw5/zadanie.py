@@ -45,12 +45,20 @@ def getsleeptime():
 
 def convtime(time):
     ok=0
-    while ok==0:
+    past=0
+    while ok==0 or past==0:
         try:
             datetime.strptime(time,"%d/%m/%Y %H:%M")
+            if datetime.strptime(time,"%d/%m/%Y %H:%M")<gettime(1):
+                print("Data lub czas jest przeszły !")
+                time=input("Wpisz poprawną datę: ")
+                past=0
+            else:
+                past=1
         except ValueError:
             print("Niepoprawna data !")
             time=input("Wpisz poprawną datę: ")
+            ok=0
         else:
             ok=1
     czas=datetime.strptime(time,"%d/%m/%Y %H:%M")
@@ -72,7 +80,7 @@ def saveres(lista):
         f.write(output)
         #for i in comp_list:
         #    f.write("%s\n" % i)
-    print("Wyniki zostały zapisane do pliku: ",filename)
+    print("Wyniki zostały zapisane do pliku:",filename)
     exit()
 
 # Odczytywanie i wyświetlanie listy stacji
@@ -99,9 +107,6 @@ inlon=input("Wpisz datę do której ma działać skrypt w formacie DD/MM/RRRR hh
 lon=convtime(inlon)
 init=gettime(1)
 cz_d=lon-init
-if lon<init:
-    print("Wpisano przeszłą datę lub godzinę !")
-    exit()
 print("Czas działania:",cz_d)
 
 #Zapisywanie pierwszej obserwacji
@@ -114,7 +119,7 @@ for row in data_dec:
 #Zawieszenie działania do pełnej godziny
 sleeptime=getsleeptime()
 if cz_d.seconds<sleeptime:
-    print("Czas działania skryptu jest zbyt krótki, zostanie zapisana jedna obserwacja")
+    print("Czas działania skryptu jest zbyt krótki, zostanie zapisana tylko jedna obserwacja")
     saveres(lista_dan)
 else:
     print("Pobrano pierwszą obserwację, następna aktualizacja danych za:",int(sleeptime/60),"minut")
