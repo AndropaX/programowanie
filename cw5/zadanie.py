@@ -41,8 +41,7 @@ def gettime(arg):
         time_zero=datetime.strptime(date,"%d/%m/%Y/%H")
         time=time_zero+timedelta(hours=1)
     else:
-        print("Niepoprawny argument !")
-        exit()
+        raise ValueError("Niepoprawny argument !")   
     return time
 
 def getsleeptime():
