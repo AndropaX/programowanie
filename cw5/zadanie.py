@@ -57,7 +57,6 @@ def convtime(time):
     past=0
     while ok==0 or past==0:
         try:
-            datetime.strptime(time,"%d/%m/%Y %H:%M")
             if datetime.strptime(time,"%d/%m/%Y %H:%M")<gettime(1):
                 print("Data lub czas jest przeszły !")
                 time=input("Wpisz poprawną datę i godzinę: ")
@@ -154,7 +153,7 @@ while lon>gettime(1):
         for i in lista_new:
             lista_dan.append(i)
         if new_sleep>rem_time.seconds:
-            print("Pozostały czas działania jest zbyt krótki, kończenie działania")
+            print("Pozostały czas działania jest zbyt krótki, kończenie działania skryptu")
             saveres(lista_dan,init)
         else:
             print("Następna aktualizacja danych za:",int(new_sleep/60),"minut")
