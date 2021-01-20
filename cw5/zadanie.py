@@ -79,8 +79,8 @@ def saveresult(datalist,inittime):
     finish_text=gettime(2)
     result_text="Średnia temperatura od "+start_text+" do "+finish_text+", z "+str(len(table))+" pomiarów, ze stacji "+str(table[0,1])+" wynosiła: "+str(mean_temp)+" st. C"
     print(result_text)
-    filename_time=gettime(4)
-    filename="cw5/synop-"+filename_time+".txt"
+    file_time=gettime(4)
+    filename="cw5/synop-"+file_time+".txt"
     with open(filename,'w') as f:
         for i in table:
             f.write("%s\n" % i)
