@@ -127,11 +127,11 @@ while target_time>gettime(1):
         print("Brak nowych danych, następna aktualizacja za: 5 minut")
         time.sleep(300)
     else:
-        new_sleeptime=getsleeptime()
-        remaining_time=target_time-gettime(1)
         print("Pobrano nowe dane")
         for i in new_data:
             data_list.append(i)
+        new_sleeptime=getsleeptime()
+        remaining_time=target_time-gettime(1)
         if new_sleeptime>remaining_time.seconds:
             print("Pozostały czas działania jest zbyt krótki, kończenie działania skryptu")
             saveresult(data_list,init_time)
