@@ -52,7 +52,7 @@ def converttime(string):
         try:
             if datetime.strptime(string,"%d/%m/%Y %H:%M")<gettime(1):
                 print("Data lub czas jest przeszły !")
-                time=input("Wpisz poprawną datę i godzinę: ")
+                string=input("Wpisz poprawną datę i godzinę: ")
                 past=0
             else:
                 past=1
