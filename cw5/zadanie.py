@@ -7,7 +7,15 @@ from datetime import datetime
 from datetime import timedelta
     
 def writeurl(url):
-    content=urllib.request.urlopen(url)
+    while True:
+        try:
+            content=urllib.request.urlopen(url)
+        except urllib.error.URLError:
+            print("Błąd połączenia !")
+            print("Następna próba łączenia za: 1 minutę")
+            time.sleep(60)
+        else:
+            break
     lines=[l.decode('utf-8') for l in content.readlines()]
     data_list=[]
     np.array(data_list)
