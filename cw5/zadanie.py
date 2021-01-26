@@ -54,22 +54,16 @@ def gettime(variant):
     return time
 
 def converttime(string):
-    ok=0
-    past=0
-    while ok==0 or past==0:
+    while True:
         try:
             if datetime.strptime(string,"%d/%m/%Y %H:%M")<gettime(1):
                 print("Data lub czas jest przeszły !")
                 string=input("Wpisz poprawną datę i godzinę: ")
-                past=0
             else:
-                past=1
+                break
         except ValueError:
             print("Niepoprawny format daty i godziny !")
             string=input("Wpisz poprawną datę i godzinę: ")
-            ok=0
-        else:
-            ok=1
     time=datetime.strptime(string,"%d/%m/%Y %H:%M")
     return time
 
