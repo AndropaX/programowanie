@@ -26,15 +26,18 @@ def writeurl(url):
     return data_list
 
 def getdataurl(station_number):
-    ok=0
-    while ok==0:
-        url="https://danepubliczne.imgw.pl/api/data/synop/id/"+station_number+"/format/csv"
-        code=requests.get(url)
-        if code.status_code==404:
-            print("Niepoprawny kod stacji !")
-            station_number=input("Wpisz poprawny kod stacji: ")
-        else:
-            ok=1
+    while True:
+        try:
+            url="https://danepubliczne.imgw.pl/api/data/synop/id/"+station_number+"/format/csv"
+            code=requests.get(url)
+            if code.status_code==404:
+                print("Niepoprawny kod stacji !")
+                station_number=input("Wpisz poprawny kod stacji: ")
+            else:
+                break
+        except:
+            print("Błąd połączenia !")
+            station_number=input("Sprawdź połączenie i wpisz ponownie kod: ")
     return url
 
 def gettime(variant):
