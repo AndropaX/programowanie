@@ -59,7 +59,8 @@ def gettime(variant):
 def converttime(string):
     while True:
         try:
-            if datetime.strptime(string,"%d/%m/%Y %H:%M")<gettime(1):
+            time=datetime.strptime(string,"%d/%m/%Y %H:%M")
+            if time<gettime(1):
                 print("Data lub czas jest przeszły !")
                 string=input("Wpisz poprawną datę i godzinę: ")
             else:
@@ -67,7 +68,6 @@ def converttime(string):
         except ValueError:
             print("Niepoprawny format daty i godziny !")
             string=input("Wpisz poprawną datę i godzinę: ")
-    time=datetime.strptime(string,"%d/%m/%Y %H:%M")
     return time
 
 def getsleeptime():
