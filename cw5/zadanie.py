@@ -10,7 +10,7 @@ def writeurl(url):
     while True:
         try:
             content=urllib.request.urlopen(url)
-        except urllib.error.URLError:
+        except:
             print("Błąd połączenia !")
             print("Następna próba łączenia za: 1 minutę")
             time.sleep(60)
