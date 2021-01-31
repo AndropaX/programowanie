@@ -72,7 +72,7 @@ def converttime(string):
 
 def getsleeptime():
     while gettime(3)<gettime(1):
-            time.sleep(1)
+        time.sleep(1)
     hour_difference=gettime(3)-gettime(1)
     sleeptime=hour_difference.seconds+10
     return sleeptime
@@ -118,7 +118,7 @@ data_list=writeurl(request_url)
 
 #Zawieszenie działania do pełnej godziny
 sleeptime=getsleeptime()
-if working_time.seconds<sleeptime:
+if working_time.seconds<sleeptime and working_time.days==0:
     print("Czas działania skryptu jest zbyt krótki, zostanie zapisana tylko jedna obserwacja")
     saveresult(data_list,init_time)
 else:
@@ -137,7 +137,7 @@ while target_time>gettime(1):
             data_list.append(i)
         new_sleeptime=getsleeptime()
         remaining_time=target_time-gettime(1)
-        if new_sleeptime>remaining_time.seconds:
+        if new_sleeptime>remaining_time.seconds and remaining_time.days==0:
             print("Pozostały czas działania jest zbyt krótki, kończenie działania skryptu")
             saveresult(data_list,init_time)
         else:
